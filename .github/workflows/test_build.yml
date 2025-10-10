@@ -8,7 +8,7 @@ on:
 
 jobs:
   build_test:
-    runs-on: ubuntu-22.04  # ← важна промяна
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout the repository
@@ -26,15 +26,18 @@ jobs:
       - name: Install Playwright browsers and system deps
         run: npx playwright install --with-deps
 
-      - name: Manually update the config.js file
+      - name: Update config.js file
         run: |
           echo "export const settings = { host: 'http://localhost:3030' };" > src/config.js
 
       - name: Start Backend
         run: npm run server &
-        
+      
       - name: Start Frontend 
         run: npm run start &
+      
+      - name: Wait for frontend
+        run: npx wait-on http://localhost:3000
 
-      - name: Execute Playwright UI tests
+      - name: Run Playwright UI tests
         run: npm run test
