@@ -1,1 +1,1 @@
-export const settings = { host: 'http://library-1-anxu.onrender.com/' };
+export const settings = { host: 'https://library-1-anxu.onrender.com/' };
