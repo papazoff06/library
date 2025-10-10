@@ -19,8 +19,15 @@ jobs:
       with:
         node-version: 20
         cache: 'npm'
-    - name: Install package.json dependencies
-      run: npm install
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Playwright browsers and system deps
+      run: |
+          npx playwright install --with-deps
+
+    - name: Run Playwright tests
+      run: npx playwright test
     - name: Manually update the config.js file
       run: |
         echo "export const settings = { host: 'http://localhost:3030' };" > src/config.js
